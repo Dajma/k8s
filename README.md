@@ -35,15 +35,15 @@ Node_exporter:
 IP:9100 # Use port-forward to access
 
 
-# Grafana:
-## Adding new dashboard to values.yaml
+## Grafana:
+### Adding new dashboard to values.yaml
 +dashboards:
 +  default:
 +    node-exporter:
 +      json: |
 +        {
   
-## Add datasource to values.yaml
+### Add datasource to values.yaml
 +datasources:
 +  datasources.yaml:
 +    apiVersion: 1
@@ -54,7 +54,7 @@ IP:9100 # Use port-forward to access
 +      access: proxy
 +      isDefault: true
 
-## Add provider to values.yaml
+### Add provider to values.yaml
 +dashboardProviders:
 +  dashboardproviders.yaml:
 +    apiVersion: 1
@@ -72,16 +72,16 @@ kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-pass
 export POD_NAME=$(kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
      kubectl --namespace monitoring port-forward $POD_NAME 3000
      
-# ingress
+## ingress
  ingress:
 -  enabled: false
--  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
--  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
--  # ingressClassName: nginx
--  # Values can be templated
+-  #For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+-  #See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+-  #ingressClassName: nginx
+-  #Values can be templated
 -  annotations: {}
--    # kubernetes.io/ingress.class: nginx
--    # kubernetes.io/tls-acme: "true"
+-    #kubernetes.io/ingress.class: nginx
+-    #kubernetes.io/tls-acme: "true"
 -  labels: {}
 +  enabled: true
 +  ingressClassName: nginx
