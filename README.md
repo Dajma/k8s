@@ -10,7 +10,9 @@ helm repo add chartmuseum http://localhost:8080
 helm repo update
 ```
 ### Download chart directly
-```wget  http://localhost:8081/charts/mysql-1.0.3.tg```
+```
+wget  http://localhost:8081/charts/mysql-1.0.3.tg
+```
 
 ### Package and upload
 ```
