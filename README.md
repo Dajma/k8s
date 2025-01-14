@@ -9,6 +9,9 @@ chartmuseum --port=<port> --storage="local" --storage-local-rootdir="<chart-dir>
 helm repo add chartmuseum http://localhost:8080
 helm repo update
 ```
+### Download chart directly
+```wget  http://localhost:8081/charts/mysql-1.0.3.tg```
+
 ### Package and upload
 ```
 git clone https://github.com/stakater/chart-mysql.git
