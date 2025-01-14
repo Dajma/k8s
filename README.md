@@ -14,3 +14,42 @@ Check if specific pods/deployements are ready, use AI to create the query
 
 Node_exporter:
 IP:9100 # Use port-forward to access
+
+
+# Grafana:
+## Adding new dashboard to values.yaml
++dashboards:
++  default:
++    node-exporter:
++      json: |
++        {
+  
+## Add datasource to values.yaml
++datasources:
++  datasources.yaml:
++    apiVersion: 1
++    datasources:
++    - name: Prometheus
++      type: prometheus
++      url: http://prometheus-server.monitoring.svc.cluster.local
++      access: proxy
++      isDefault: true
+
+## Add provider to values.yaml
++dashboardProviders:
++  dashboardproviders.yaml:
++    apiVersion: 1
++    providers:
++    - name: 'default'
++      orgId: 1
++      folder: ''
++      type: file
++      disableDeletion: false
++      editable: true
++      options:
++        path: /var/lib/grafana/dashboards/default
+
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+export POD_NAME=$(kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
+     kubectl --namespace monitoring port-forward $POD_NAME 3000
+     
