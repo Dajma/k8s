@@ -1,5 +1,24 @@
 # k8s
-Prometheus
+## charmuseum
+### Install and run
+chartmuseum --port=<port> --storage="local" --storage-local-rootdir="<chart-dir>"
+
+### Add repo and update
+helm repo add chartmuseum http://localhost:8080
+helm repo update
+
+### Package and upload
+git clone https://github.com/stakater/chart-mysql.git
+cd chart-mysql/mysql
+helm package .
+ls
+curl -v -L --data-binary "@mysql-1.0.3.tgz" http://localhost:8081/api/charts
+
+helm repo update
+helm install chartmuseum/mysql
+
+
+## Prometheus
 Install using helm chart with as much customization as possibly you know, then you can configure additional settings using crds whose yaml manifests stay in git. The problem with this is when you do helm delete
 
 Components:
