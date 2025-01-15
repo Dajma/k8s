@@ -106,3 +106,7 @@ export POD_NAME=$(kubectl get pods --namespace monitoring -l "app.kubernetes.io/
 +    - grafana.local
 ```
 
+## get grafana secret
+```
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
